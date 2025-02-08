@@ -80,6 +80,10 @@ backend/**/*.rar
 # iCloud generated files
 /**/*.icloud
 
+### spring ###
+backend/**/application-*.yml
+!backend/**/application-template.yml
+
 ### react ###
 /**/.DS_*
 /**/logs

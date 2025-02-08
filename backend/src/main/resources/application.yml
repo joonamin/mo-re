@@ -1,0 +1,9 @@
+# this file will be overwritten via github secret
+spring:
+  application:
+    name: more
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:more
+    username: sa
+    password:
