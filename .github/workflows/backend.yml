@@ -40,4 +40,4 @@ jobs:
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./backend/gradlew build sonar --info
+        run: cd ./backend && ./gradlew build sonar --info
