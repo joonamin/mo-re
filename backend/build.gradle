@@ -3,6 +3,7 @@ plugins {
 	id 'org.springframework.boot' version '3.4.2'
 	id 'io.spring.dependency-management' version '1.1.7'
 	id 'org.sonarqube' version '6.0.1.5171'
+	id 'com.diffplug.spotless' version '7.0.2'
 }
 
 group = 'com.kangbaeclub'
@@ -45,6 +46,17 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+task installGitHooks(type: Copy) {
+	from new File(rootProject.rootDir, './scripts/pre-commit')
+	into new File(rootProject.rootDir, '../.git/hooks')
+}
+
+task setGitHooksExecutable(type: Exec) {
+	dependsOn installGitHooks
+	println 'set executable'
+	commandLine 'chmod', '-R', '+x', '../.git/hooks/'
+}
+
 sonar {
 	properties {
 		property "sonar.projectKey", "kang-bae-club_mo-re"
@@ -52,3 +64,18 @@ sonar {
 		property "sonar.host.url", "https://sonarcloud.io"
 	}
 }
+
+spotless {
+	java {
+		googleJavaFormat().aosp()
+		// 아래 순서로 import문 정렬
+		importOrder('java', 'javax', 'jakarta', 'org', 'com')
+		// 사용하지 않는 import 제거
+		removeUnusedImports()
+		// 각 라인 끝에 있는 공백을 제거
+		trimTrailingWhitespace()
+		// 파일 끝에 새로운 라인 추가
+		endWithNewline()
+	}
+}
+
