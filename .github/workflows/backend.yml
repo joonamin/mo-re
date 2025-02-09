@@ -39,8 +39,9 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle
       - name: Set Credentials
         run: |
+          cd backend
           mkdir -p src/main/resources
-          echo '${{ secrets.APPLICATION_YML }}' | base64 --decode > src/main/resources/application.yml
+          echo ${{ secrets.APPLICATION_YML }} | base64 --decode > src/main/resources/application.yml
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
