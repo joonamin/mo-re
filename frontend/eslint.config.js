@@ -1,9 +1,8 @@
-import globals from 'globals';
-import pluginJs from '@eslint/js';
-import tseslint from 'typescript-eslint';
-import pluginReact from 'eslint-plugin-react';
-import stylisticJs from '@stylistic/eslint-plugin';
-
+import globals from 'globals'
+import pluginJs from '@eslint/js'
+import tseslint from 'typescript-eslint'
+import pluginReact from 'eslint-plugin-react'
+import stylisticJs from '@stylistic/eslint-plugin'
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -20,7 +19,7 @@ export default [
             'react/jsx-uses-vars': 'error',
             '@stylistic/indent': ['error', 4],
             '@stylistic/arrow-parens': ['error'],
-            '@stylistic/semi': ['error'],
+            '@stylistic/semi': ['error', 'never'],
             '@stylistic/quotes': [
                 'error', 
                 'single',
@@ -40,10 +39,10 @@ export default [
             ],
         },
     },
-    {languageOptions: { globals: globals.browser }},
+    {languageOptions: {globals: globals.browser }},
     pluginJs.configs.recommended,
     ...tseslint.configs.recommended,
     ...tseslint.configs.stylistic,
     pluginReact.configs.flat.recommended,
     pluginReact.configs.flat['jsx-runtime'],
-];
+]
