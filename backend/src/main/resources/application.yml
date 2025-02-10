@@ -1,4 +1,6 @@
 # this file will be overwritten via github secret
+# environment files are in notion page
+# if, it needed to be modified set `APPLICATION_YML` in github secret with base64 encoding
 spring:
   application:
     name: more

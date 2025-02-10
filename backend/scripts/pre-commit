@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# 변경된 파일들 이름만 추출하여 저장
+stagedFiles=$(git diff --staged --name-only backend)
+
+# backend의 변경사항에 대해서만
+if [ -n "$stagedFiles" ]; then
+    # SpotlessApply 실행
+    echo "Running spotlessApply. Formatting code..."
+    cd backend
+    if ! ./gradlew spotlessApply; then
+        exit 1
+    fi
+
+
+    # 변경사항이 발생한 파일들 다시 git add
+    for file in $stagedFiles; do
+      if test -f "$file"; then
+        git add "$file"
+      fi
+    done
+    exit 0
+fi
